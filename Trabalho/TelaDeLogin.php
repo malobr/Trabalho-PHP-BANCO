@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cyber Login</title>
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
@@ -22,7 +22,7 @@
                 <i></i>
             </div>
             <div class="link">
-                <a href="Cadastro.php">Cadastrar</a>
+                <a href="telaDeCadastro.php">Cadastrar</a>
             </div>
             <input type="submit" value="Login">
         </form>
