@@ -18,16 +18,21 @@
         // print_r('<br>');
         // print_r('Endereço: ' . $_POST['endereco']);
 
-        include_once('config.php');
+        require_once "telaDeCadastro.php";
 
-        $nome = $_POST['nome'];
-        $usuario = $_POST['usuario'];
-        $senha = $_POST['senha'];
-    
-        $result = mysqli_query($conexao, "INSERT INTO usuarios(nome,usuario,senha) 
-        VALUES ('$nome','$usuario','$senha')");
+        $usu = $_POST["usuario"] ?? null;
+        $nom = $_POST["nome"] ?? null;
+        $sen = $_POST["senha"] ?? null;
 
-        header('Location: telaDeLogin.php');
+        require "form-criar-usuario.php";
+        
+        if(is_null($usu) || is_null($nom) || is_null($sen)){
+            // digitar info
+        }else{
+            // criando
+            criarUsuario($usu, $nom, $sen);
+            echo "Usuario criado com sucesso!";
+        }
     }
 
 ?>
@@ -37,7 +42,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyber Cadastro</title>
-    <link rel="stylesheet" href="cadastro.css">
+    <link rel="stylesheet" href="css/cadastro.css">
 </head>
 <body>
     <div class="box">

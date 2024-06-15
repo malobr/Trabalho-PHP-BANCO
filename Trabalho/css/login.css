@@ -186,9 +186,9 @@ body{
 }
 
 .box form input[type="submit"]{
-    border:  nomne;
+    border:  none;
     outline: none;
-    padding: 9px 25px;
+    padding: 9px ;
     background: #fff;
     cursor: pointer;
     font-size: 0.9em;
@@ -199,4 +199,12 @@ body{
 }
 .box form input[type="submit"]:active{
     opacity: 0.8;
+}
+.box form input[type="submit"]:hover {
+    background: linear-gradient(to right, #ff00ee, #b100d4);
+    box-shadow: 0 0 10px #ff00d4, 0 0 20px #7c00d4; 
+    color: #fff; 
+    transition: 0.5s;
+
+
 }
