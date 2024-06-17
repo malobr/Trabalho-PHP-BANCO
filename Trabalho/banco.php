@@ -33,6 +33,7 @@ function criarUsuario(string $usuario, string $nome, string $senha, string $tipo
     }
 }
 
+
 function deletarUsuario(string $usuario): void
 {
     global $banco;
@@ -86,4 +87,67 @@ function buscarTipoUsuario(string $usuario)
         return null;
     }
 }
+
+//Funcoes para manipular os Eventos
+function criarEvento(string $nome, string $data, string $local): void
+{
+    global $banco;
+
+    $q = "INSERT INTO eventos(cod, nome, data, local) VALUES (NULL, '$nome', '$data', '$local')";
+
+    $resp = $banco->query($q);
+    echo "<br> Query: $q";
+    echo var_dump($resp);
+}
+
+function deletarEvento(string $nome): void
+{
+    global $banco;
+
+    $q = "DELETE FROM eventos WHERE nome='$nome'";
+
+    $resp = $banco->query($q);
+    echo "<br> Query: $q";
+    echo var_dump($resp);
+}
+
+function atualizarEvento(string $nome, string $novoNome = "", string $data = "", string $local = ""): void
+{
+    global $banco;
+
+    $set = [];
+    if ($novoNome != "") {
+        $set[] = "nome='$novoNome'";
+    }
+    if ($data != "") {
+        $set[] = "data='$data'";
+    }
+    if ($local != "") {
+        $set[] = "local='$local'";
+    }
+
+    $set = implode(', ', $set);
+
+    $q = "UPDATE eventos SET $set WHERE nome='$nome'";
+
+    $resp = $banco->query($q);
+    echo "<br> Query: $q";
+    echo var_dump($resp);
+}
+
+function buscarEvento(string $nome)
+{
+    global $banco;
+
+    $q = "SELECT * FROM eventos WHERE nome='$nome'";
+    $resultado = $banco->query($q);
+
+    if ($resultado && $resultado->num_rows > 0) {
+        $evento = $resultado->fetch_assoc();
+        return $evento;
+    } else {
+        return null;
+    }
+}
+
 ?>
