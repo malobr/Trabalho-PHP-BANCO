@@ -6,32 +6,43 @@
     <title>Document</title>
 </head>
 <body>
-<?php 
-    require_once "banco.php";
+<?php
+session_start(); 
 
-    $u = $_POST["usuario"] ?? null;
-    $s = $_POST["senha"] ?? null;
+require_once "banco.php";
 
-    if (is_null($u) || is_null($s)) {
-        require "form-login.php";
-    } else {
-        $q = "SELECT usuario, nome, senha FROM usuarios WHERE usuario='$u'";
-        $busca = $banco->query($q);
+$u = $_POST["usuario"] ?? null;
+$s = $_POST["senha"] ?? null;
 
-        if ($busca && $busca->num_rows > 0) {
-            $usu = $busca->fetch_object();
+if (is_null($u) || is_null($s)) {
+    header("Location: form-login.php"); 
+    exit();
+}
 
-            if (password_verify($s, $usu->senha)) {
-                echo "Login :)";
-            } else {
-                require "form-login.php";
-                echo "Senha Inválida :/";
-            }
+$q = "SELECT usuario, nome, senha, tipo FROM usuarios WHERE usuario='$u'";
+$busca = $banco->query($q);
+
+if ($busca && $busca->num_rows > 0) {
+    $usu = $busca->fetch_object();
+
+    if (password_verify($s, $usu->senha)) {
+        $_SESSION['usuario'] = $u;
+        $_SESSION['tipo'] = $usu->tipo;
+
+        if ($usu->tipo === 'administrador') {
+            header("Location: calendario-admin.php");
         } else {
-            require "form-login.php";
-            echo "Usuário não encontrado :/";
+            header("Location: calendario-visualizador.php");
         }
+        exit();
+    } else {
+        header("Location: form-login.php?erro=senha"); 
+        exit();
     }
+} else {
+    header("Location: form-login.php?erro=usuario"); 
+    exit();
+}
 ?>
 
 </body>

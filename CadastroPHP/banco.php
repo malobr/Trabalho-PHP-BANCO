@@ -70,6 +70,20 @@
         }
     }
 
+    function buscarTipoUsuario(string $usuario) {
+        global $banco;
+    
+        $q = "SELECT tipo FROM usuarios WHERE usuario='$usuario'";
+        $resultado = $banco->query($q);
+    
+        if ($resultado && $resultado->num_rows > 0) {
+            $tipo = $resultado->fetch_assoc()['tipo'];
+            return $tipo;
+        } else {
+            return null;
+        }
+    }
+    
     // Exemplos de chamada de função:
     // criarUsuario("new_user", "New User", "password123", "admin", false);
     // deletarUsuario("some_user");

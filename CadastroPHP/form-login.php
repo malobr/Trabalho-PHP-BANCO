@@ -7,7 +7,7 @@
 </head>
 <body>
     <form action="login.php" method="post">
-        <label for="usuario">Usuario:</label>
+        <label for="usuario">Usuário:</label>
         <input type="text" name="usuario" id="usuario" required>
         
         <label for="senha">Senha:</label>
