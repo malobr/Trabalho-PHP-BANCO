@@ -1,9 +1,5 @@
 <?php
-require_once "banco.php";
-
 function construcao_calendario($mes, $ano) {
-    global $banco;
-
     $diasDaSemana = array('Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb');
     $primeiroDiaDoMes = mktime(0, 0, 0, $mes, 1, $ano);
     $numeroDeDias = date('t', $primeiroDiaDoMes);
@@ -35,22 +31,11 @@ function construcao_calendario($mes, $ano) {
             echo "</tr><tr>";
         }
 
-        $dataAtual = date("$ano-$mes-$diaAtual");
+        $dataAtual = date('d-m-a');
         $diaAtualFormatado = sprintf('%02d', $diaAtual);
-        $hoje = ($dataAtual == date('Y-m-d')) ? 'hoje' : '';
+        $hoje = ($dataAtual == "$ano-$mes-$diaAtualFormatado") ? 'hoje' : '';
 
-        // Buscar eventos do banco de dados para este dia
-        $q = "SELECT titulo FROM eventos WHERE DATE(data) = '$dataAtual'";
-        $result = $banco->query($q);
-
-        $eventos = "";
-        if ($result && $result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $eventos .= "<li>{$row['titulo']}</li>";
-            }
-        }
-
-        echo "<td class='$hoje'>$diaAtual<ul>$eventos</ul></td>";
+        echo "<td class='$hoje'>$diaAtual</td>";
 
         $diaAtual++;
         $diaDaSemana++;
