@@ -9,22 +9,22 @@
 <body>
     <div class="box">
         <span class="borderLine"></span>
-        <form>
+        <form method="POST" action="sua_pagina_de_login.php">
             <h2>Cyber Login</h2>
             <div class="inputBox">
-                <input type="text"  required="required" name="" id="">
+                <input type="text" required="required" name="usuario" id="usuario">
                 <span>Usuario</span>
                 <i></i>
             </div>
             <div class="inputBox">
-                <input type="password"  required="required" name="" id="">
+                <input type="password" required="required" name="senha" id="senha">
                 <span>Senha</span>
                 <i></i>
             </div>
             <div class="link">
                 <a href="telaDeCadastro.php">Cadastrar</a>
             </div>
-            <input type="submit" value="Login">
+            <input type="submit" name="login" value="Login">
         </form>
     </div>
 </body>

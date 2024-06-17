@@ -62,9 +62,10 @@ CREATE TABLE `pecas` (
 
 CREATE TABLE `usuarios` (
   `cod` int(11) NOT NULL,
-  `usuario` int(11) NOT NULL,
-  `nome` int(11) NOT NULL,
-  `senha` int(11) NOT NULL
+  `usuario` varchar(50) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `tipo` varchar(20) NOT NULL DEFAULT 'visualizador'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

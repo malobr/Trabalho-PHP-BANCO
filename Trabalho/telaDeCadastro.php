@@ -47,29 +47,37 @@
 <body>
     <div class="box">
         <span class="borderLine"></span>
-        <form>
-            <h2>Cyber Cadastro</h2>
-            <div class="inputBox">
-                <input type="text"  required="required" name="" id="">
-                <span>Nome Completo</span>
-                <i></i>
-            </div>
-            <div class="inputBox">
-                <input type="text"  required="required" name="" id="">
-                <span>Usuario</span>
-                <i></i>
-            </div>
-            <div class="inputBox">
-                <input type="password"  required="required" name="" id="">
-                <span>Senha</span>
-                <i></i>
-            </div>
-            
-            <div class="link">
-                <a href="telaDeLogin.php">Login</a>
-            </div>
-            <input type="submit" value="Cadastro">
-        </form>
+        <form method="POST" action="sua_pagina_de_cadastro.php">
+    <h2>Cyber Cadastro</h2>
+    <div class="inputBox">
+        <input type="text" required="required" name="nome" id="nome">
+        <span>Nome Completo</span>
+        <i></i>
+    </div>
+    <div class="inputBox">
+        <input type="text" required="required" name="usuario" id="usuario">
+        <span>Usuario</span>
+        <i></i>
+    </div>
+    <div class="inputBox">
+        <input type="password" required="required" name="senha" id="senha">
+        <span>Senha</span>
+        <i></i>
+    </div>
+    <div class="inputBox">
+        <select name="tipo" required="required">
+            <option value="visualizador">Visualizador</option>
+            <option value="administrador">Administrador</option>
+        </select>
+        <span>Tipo de Usuário</span>
+        <i></i>
+    </div>
+    <div class="link">
+        <a href="telaDeLogin.php">Login</a>
+    </div>
+    <input type="submit" value="Cadastro">
+</form>
+
     </div>
 </body>
 </html>
