@@ -1,5 +1,7 @@
 <?php
 
+require_once "banco.php";
+
 if (isset($_POST['submit'])) {
     require_once "telaDeCadastroEvento.php";
 
@@ -7,15 +9,30 @@ if (isset($_POST['submit'])) {
     $data = $_POST["data"] ?? null;
     $local = $_POST["local"] ?? null;
 
-    //require "form-criar-usuario.php";
-
     if (is_null($nome) || is_null($data) || is_null($local)) {
-        // digitar info
+        echo "Por favor, preencha todos os campos.";
     } else {
-        // criando
         criarEvento($nome, $data, $local);
         echo "Evento criado com sucesso!";
     }
+
+    $nome = $banco->real_escape_string($nome);
+    $data = $banco->real_escape_string($data);
+    $local = $banco->real_escape_string($local);
+
+    $q = "INSERT INTO eventos (nome, data, local) VALUES ('$nome', '$data', '$local')";
+
+    $resultado = $banco->query($q);
+
+    if ($resultado) {
+        header("Location: telaDeLogin.php");
+        exit();
+    } else {
+        echo "Erro ao cadastrar evento: " . $banco->error;
+    }
+} else {
+    header("Location: telaDeCadastroEvento.php");
+    exit();
 }
 
 ?>
@@ -49,17 +66,7 @@ if (isset($_POST['submit'])) {
                 <span>Local do Evento</span>
                 <i></i>
             </div>
-            <!-- <div class="inputBox">
-                <select name="tipo" required="required">
-                    <option value="visualizador">Visualizador</option>
-                    <option value="administrador">Administrador</option>
-                </select>
-                <span>Tipo de Usuário</span>
-                <i></i>
-            </div>
-            <div class="link">
-                <a href="telaDeLogin.php">Login</a>
-            </div> -->
+
             <input type="submit" value="Cadastro">
         </form>
 
