@@ -17,7 +17,7 @@ body{
 .box{
     position: relative;
     width: 380px;
-    height: 420px;
+    height: 550px;
     background: #1c1c1c;
     border-radius: 8px;
     overflow: hidden;
@@ -166,11 +166,12 @@ body{
 .box form .inputBox input:valid ~ i,
 .box form .inputBox input:focus ~ i{
     height: 44px;
+    
 }
 
 .box form .link{
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
 }
 
 .box form .link a{
@@ -201,8 +202,8 @@ body{
     opacity: 0.8;
 }
 .box form input[type="submit"]:hover {
-    background: linear-gradient(to right, #ff00ee, #b100d4);
-    box-shadow: 0 0 10px #ff00d4, 0 0 20px #7c00d4; 
+    background: linear-gradient(to right, #00ffea, #03f4e0);
+    box-shadow: 0 0 10px #00ffea, 0 0 20px #00d4c4; 
     color: #fff; 
     transition: 0.5s;
 

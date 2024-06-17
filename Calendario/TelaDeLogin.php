@@ -22,7 +22,8 @@
                 <i></i>
             </div>
             <div class="link">
-                <a href="telaDeCadastro.php">Cadastrar</a>
+                <a href="telaDeCadastro.php">Cadastrar Usuario</a>
+                <a href="telaDeCadastroEvento.php">Cadastrar Evento</a>
             </div>
             <input type="submit" name="login" value="Login">
         </form>

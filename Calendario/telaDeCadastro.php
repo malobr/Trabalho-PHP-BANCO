@@ -72,8 +72,10 @@
         <span>Tipo de Usuário</span>
         <i></i>
     </div>
+    <br>
     <div class="link">
         <a href="telaDeLogin.php">Login</a>
+        <a href="telaDeCadastroEvento.php">Cadastrar Evento</a>
     </div>
     <input type="submit" value="Cadastro">
 </form>

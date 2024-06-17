@@ -1,6 +1,6 @@
 <?php
 //cnx com o banco
-$banco = new mysqli("localhost", "root", "", "bancophp");
+$banco = new mysqli("localhost", "root", "marcelo", "bancophp");
 
 if ($banco->connect_error) {
     die("Connection failed: " . $banco->connect_error);
