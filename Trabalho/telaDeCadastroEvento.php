@@ -7,7 +7,7 @@ if (isset($_POST['submit'])) {
     $data = $_POST["data"] ?? null;
     $local = $_POST["local"] ?? null;
 
-    require "form-criar-usuario.php";
+    //require "form-criar-usuario.php";
 
     if (is_null($nome) || is_null($data) || is_null($local)) {
         // digitar info
@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
                 <i></i>
             </div>
             <div class="inputBox">
-                <input type="password" required="required" name="local" id="local">
+                <input type="text" required="required" name="local" id="local">
                 <span>Local do Evento</span>
                 <i></i>
             </div>
@@ -67,4 +67,3 @@ if (isset($_POST['submit'])) {
 </body>
 
 </html>
-?>
