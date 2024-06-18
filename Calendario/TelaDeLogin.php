@@ -1,5 +1,49 @@
+<?php
+include 'banco.php';
+
+session_start(); // Inicia a sessão no início do script
+
+if (isset($_POST['usuario']) && isset($_POST['senha'])) {
+    if (empty($_POST['usuario'])) {
+        echo 'Preencha seu usuário!';
+    } elseif (empty($_POST['senha'])) {
+        echo 'Preencha sua senha!';
+    } else {
+        // Verificar se a variável $banco está definida corretamente
+        if (isset($banco)) {
+            $usuario = $banco->real_escape_string($_POST['usuario']);
+            $senha = $_POST['senha']; // A senha não deve ser escapada
+
+            $sql_code = "SELECT * FROM usuarios WHERE usuario = '$usuario'";
+            $sql_query = $banco->query($sql_code) or die("Falha na execução!!" . $banco->error);
+
+            $quantidade = $sql_query->num_rows;
+
+            if ($quantidade == 1) {
+                $usuarioData = $sql_query->fetch_assoc();
+
+                if (password_verify($senha, $usuarioData['senha'])) {
+                    $_SESSION['cod'] = $usuarioData['cod'];
+                    $_SESSION['usuario'] = $usuarioData['usuario'];
+
+                    header("Location: telaCalendario.php");
+                    exit();
+                } else {
+                    echo 'Senha incorreta!';
+                }
+            } else {
+                echo 'Usuário não encontrado!';
+            }
+        } else {
+            echo 'Erro de conexão com o banco de dados!';
+        }
+    }
+} else {
+    echo 'Preencha todos os campos!';
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +53,11 @@
 <body>
     <div class="box">
         <span class="borderLine"></span>
-        <form method="POST" action="sua_pagina_de_login.php">
+        <form method="POST" action="TelaDeLogin.php">
             <h2>Cyber Login</h2>
             <div class="inputBox">
                 <input type="text" required="required" name="usuario" id="usuario">
-                <span>Usuario</span>
+                <span>Usuário</span>
                 <i></i>
             </div>
             <div class="inputBox">
@@ -22,7 +66,7 @@
                 <i></i>
             </div>
             <div class="link">
-                <a href="telaDeCadastro.php">Cadastrar Usuario</a>
+                <a href="telaDeCadastro.php">Cadastrar Usuário</a>
                 <a href="telaDeCadastroEvento.php">Cadastrar Evento</a>
             </div>
             <input type="submit" name="login" value="Login">

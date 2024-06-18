@@ -1,5 +1,5 @@
 <?php
-/*require_once "banco.php";
+include "banco.php";
 
 if (isset($_POST['submit'])) {
     $nome = $_POST["nome"] ?? null;
@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
 } else {
     header("Location: telaDeCadastroEvento.php");
     exit();
-}*/
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -50,7 +50,7 @@ if (isset($_POST['submit'])) {
                 <i></i>
             </div>
             <div class="inputBox">
-                <input type="text" required="required" name="data" id="data">
+                <input type="data" required="required" name="data" id="data">
                 <span>Data do Evento</span>
                 <i></i>
             </div>
