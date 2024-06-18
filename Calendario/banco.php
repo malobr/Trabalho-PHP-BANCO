@@ -1,18 +1,17 @@
 <?php
-$usuario = "root";
-$senha = "marcelo";
-$database = "login";
-$host = "localhost";
 
-$banco = new mysqli($host, $usuario, $senha, $database);
+$host = 'localhost:3308'; // Ajuste conforme necessário
+$user = 'root';
+$password = ''; // Coloque sua senha do MySQL se houver
+$dbname = 'login';
 
-// Conexão com o banco de dados
-//$banco = new mysqli("localhost", "root", "marcelo", "login");
+$banco = new mysqli($host, $user, $password, $dbname);
 
 if ($banco->connect_error) {
-    die("Connection failed: " . $banco->connect_error);
+    die("Erro de conexão com o banco de dados: " . $banco->connect_error);
 }
 
+echo "Conexão bem-sucedida!";
 
 
 

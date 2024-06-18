@@ -1,46 +1,37 @@
 <?php
-include 'banco.php';
+session_start();
+include('banco.php');
 
-session_start(); // Inicia a sessão no início do script
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
+        $usuario = $banco->real_escape_string($_POST['usuario']);
+        $senha = $_POST['senha']; // A senha não deve ser escapada
 
-if (isset($_POST['usuario']) && isset($_POST['senha'])) {
-    if (empty($_POST['usuario'])) {
-        echo 'Preencha seu usuário!';
-    } elseif (empty($_POST['senha'])) {
-        echo 'Preencha sua senha!';
-    } else {
-        // Verificar se a variável $banco está definida corretamente
-        if (isset($banco)) {
-            $usuario = $banco->real_escape_string($_POST['usuario']);
-            $senha = $_POST['senha']; // A senha não deve ser escapada
+        $sql_code = "SELECT * FROM usuarios WHERE usuario = '$usuario'";
+        $sql_query = $banco->query($sql_code) or die("Falha na execução: " . $banco->error);
 
-            $sql_code = "SELECT * FROM usuarios WHERE usuario = '$usuario'";
-            $sql_query = $banco->query($sql_code) or die("Falha na execução!!" . $banco->error);
+        $quantidade = $sql_query->num_rows;
 
-            $quantidade = $sql_query->num_rows;
-
-            if ($quantidade == 1) {
-                $usuarioData = $sql_query->fetch_assoc();
-
-                if (password_verify($senha, $usuarioData['senha'])) {
-                    $_SESSION['cod'] = $usuarioData['cod'];
-                    $_SESSION['usuario'] = $usuarioData['usuario'];
-
-                    header("Location: telaCalendario.php");
-                    exit();
-                } else {
-                    echo 'Senha incorreta!';
-                }
+        if ($quantidade == 1) {
+            $usuarioData = $sql_query->fetch_assoc();
+            if (password_verify($senha, $usuarioData['senha'])) {
+                $_SESSION['cod'] = $usuarioData['cod'];
+                $_SESSION['usuario'] = $usuarioData['usuario'];
+                header("Location: telaCalendario.php");
+                exit();
             } else {
-                echo 'Usuário não encontrado!';
+                echo 'Senha incorreta!';
             }
         } else {
-            echo 'Erro de conexão com o banco de dados!';
+            echo 'Usuário não encontrado!';
         }
+    } else {
+        echo 'Preencha todos os campos!';
     }
 } else {
-    echo 'Preencha todos os campos!';
+    echo 'Erro de conexão com o banco de dados!';
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
