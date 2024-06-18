@@ -11,7 +11,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -28,8 +27,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `marcas` (
-  `cod` int(11) NOT NULL,
-  `nome` varchar(50) NOT NULL
+  `cod` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) NOT NULL,
+  PRIMARY KEY (`cod`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -49,9 +49,12 @@ INSERT INTO `marcas` (`cod`, `nome`) VALUES
 --
 
 CREATE TABLE `pecas` (
-  `cod` int(11) NOT NULL,
+  `cod` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
-  `marca` int(11) NOT NULL
+  `marca` int(11) NOT NULL,
+  PRIMARY KEY (`cod`),
+  KEY `marca_cod` (`marca`),
+  CONSTRAINT `marca_cod` FOREIGN KEY (`marca`) REFERENCES `marcas` (`cod`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -61,35 +64,13 @@ CREATE TABLE `pecas` (
 --
 
 CREATE TABLE `usuarios` (
-  `cod` int(11) NOT NULL,
+  `cod` int(11) NOT NULL AUTO_INCREMENT,
   `usuario` varchar(50) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `senha` varchar(255) NOT NULL,
-  `tipo` varchar(20) NOT NULL DEFAULT 'visualizador'
+  `tipo` varchar(20) NOT NULL DEFAULT 'visualizador',
+  PRIMARY KEY (`cod`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Índices para tabelas despejadas
---
-
---
--- Índices de tabela `marcas`
---
-ALTER TABLE `marcas`
-  ADD PRIMARY KEY (`cod`);
-
---
--- Índices de tabela `pecas`
---
-ALTER TABLE `pecas`
-  ADD PRIMARY KEY (`cod`),
-  ADD KEY `marca_cod` (`marca`);
-
---
--- Índices de tabela `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`cod`);
 
 --
 -- AUTO_INCREMENT para tabelas despejadas
@@ -113,15 +94,10 @@ ALTER TABLE `pecas`
 ALTER TABLE `usuarios`
   MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- Restrições para tabelas despejadas
---
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
---
--- Restrições para tabelas `pecas`
---
-ALTER TABLE `pecas`
-  ADD CONSTRAINT `marca_cod` FOREIGN KEY (`marca`) REFERENCES `marcas` (`cod`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

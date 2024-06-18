@@ -201,5 +201,4 @@ function buscarEvento(string $nome)
         return null;
     }
 }
-
 ?>
