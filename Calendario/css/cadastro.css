@@ -167,7 +167,9 @@ body{
 .box form .inputBox input:focus ~ i{
     height: 44px;
     
-}
+} 
+
+
 
 .box form .link{
     display: flex;

@@ -51,13 +51,14 @@ include 'banco.php';
     </div>
     <div class="inputBox">
         <select name="tipo" required="required">
-            <option value="visualizador">Visualizador</option>
             <option value="administrador">Administrador</option>
             <option value="visualizador">Usuário</option>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2d26a4849b1601ac21ad6436e4d4fa7f3d09799c
         </select>
-        <span>Tipo de Usuário</span>
-        <i></i>
+        
     </div>
     <br>
     <div class="link">
