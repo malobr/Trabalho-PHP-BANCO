@@ -1,29 +1,21 @@
 <?php
-<<<<<<< HEAD
 $usuario = "root";
 $senha = "marcelo";
 $database = "login";
 $host = "localhost";
 
 $banco = new mysqli($host, $usuario, $senha, $database);
-=======
+
 // Conexão com o banco de dados
-$banco = new mysqli("localhost", "root", "marcelo", "bancophp");
->>>>>>> 2d26a4849b1601ac21ad6436e4d4fa7f3d09799c
+//$banco = new mysqli("localhost", "root", "marcelo", "login");
 
 if ($banco->connect_error) {
     die("Connection failed: " . $banco->connect_error);
 }
-?>
 
-<<<<<<< HEAD
-/*
-=======
-/**
- * Função para criar registros no banco de dados.
- * @param string $into - Nome da tabela.
- * @param string $values - Valores a serem inseridos.
- */
+
+
+
 function createOnDB($into, $values)
 {
     global $banco;
@@ -43,7 +35,7 @@ function createOnDB($into, $values)
  * @param string $tipo - Tipo de usuário (padrão: 'visualizador').
  * @param bool $debug - Flag para debug (padrão: false).
  */
->>>>>>> 2d26a4849b1601ac21ad6436e4d4fa7f3d09799c
+
 function criarUsuario(string $usuario, string $nome, string $senha, string $tipo = 'visualizador', $debug = false): void
 {
     global $banco;
@@ -58,7 +50,6 @@ function criarUsuario(string $usuario, string $nome, string $senha, string $tipo
         echo var_dump($resp);
     }
 
-<<<<<<< HEAD
     if ($resp === TRUE) {
         echo "Usuário criado com sucesso.<br>";
     } else {
@@ -66,12 +57,12 @@ function criarUsuario(string $usuario, string $nome, string $senha, string $tipo
     }
 }
 
-=======
+
 /**
  * Função para deletar um usuário.
  * @param string $usuario - Nome do usuário a ser deletado.
  */
->>>>>>> 2d26a4849b1601ac21ad6436e4d4fa7f3d09799c
+
 function deletarUsuario(string $usuario): void
 {
     global $banco;
@@ -148,8 +139,6 @@ function buscarTipoUsuario(string $usuario)
 }
 
 // Funções para manipular os Eventos
-<<<<<<< HEAD
-=======
 
 /**
  * Função para criar um evento.
@@ -157,7 +146,7 @@ function buscarTipoUsuario(string $usuario)
  * @param string $data - Data do evento.
  * @param string $local - Local do evento.
  */
->>>>>>> 2d26a4849b1601ac21ad6436e4d4fa7f3d09799c
+
 function criarEvento(string $nome, string $data, string $local): void
 {
     global $banco;
@@ -244,7 +233,3 @@ function buscarEvento(string $nome)
     }
 }
 ?>
-<<<<<<< HEAD
-*/
-=======
->>>>>>> 2d26a4849b1601ac21ad6436e4d4fa7f3d09799c

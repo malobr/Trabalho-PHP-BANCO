@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Tempo de geração: 19/06/2024 às 00:05
+-- Tempo de geração: 19/06/2024 às 00:30
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -41,6 +41,27 @@ CREATE TABLE `eventos` (
 INSERT INTO `eventos` (`cod`, `nome`, `data`, `local`) VALUES
 (1, 'Balada', '2024-06-18', 'Praca Osorio');
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `cod` int(11) NOT NULL,
+  `usuario` varchar(30) NOT NULL,
+  `nome` varchar(30) NOT NULL,
+  `senha` varchar(20) NOT NULL,
+  `tipo` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`cod`, `usuario`, `nome`, `senha`, `tipo`) VALUES
+(1, 'Kitler', 'adolfo', '1945', 'visualizador');
+
 --
 -- Índices para tabelas despejadas
 --
@@ -52,6 +73,12 @@ ALTER TABLE `eventos`
   ADD PRIMARY KEY (`cod`);
 
 --
+-- Índices de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`cod`);
+
+--
 -- AUTO_INCREMENT para tabelas despejadas
 --
 
@@ -59,6 +86,12 @@ ALTER TABLE `eventos`
 -- AUTO_INCREMENT de tabela `eventos`
 --
 ALTER TABLE `eventos`
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
   MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
