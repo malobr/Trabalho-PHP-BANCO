@@ -1,11 +1,16 @@
 <?php
-//cnx com o banco
+// Conexão com o banco de dados
 $banco = new mysqli("localhost", "root", "marcelo", "bancophp");
 
 if ($banco->connect_error) {
     die("Connection failed: " . $banco->connect_error);
 }
 
+/**
+ * Função para criar registros no banco de dados.
+ * @param string $into - Nome da tabela.
+ * @param string $values - Valores a serem inseridos.
+ */
 function createOnDB($into, $values)
 {
     global $banco;
@@ -17,6 +22,14 @@ function createOnDB($into, $values)
     echo var_dump($resp);
 }
 
+/**
+ * Função para criar um usuário.
+ * @param string $usuario - Nome do usuário.
+ * @param string $nome - Nome completo do usuário.
+ * @param string $senha - Senha do usuário.
+ * @param string $tipo - Tipo de usuário (padrão: 'visualizador').
+ * @param bool $debug - Flag para debug (padrão: false).
+ */
 function criarUsuario(string $usuario, string $nome, string $senha, string $tipo = 'visualizador', $debug = false): void
 {
     global $banco;
@@ -33,7 +46,10 @@ function criarUsuario(string $usuario, string $nome, string $senha, string $tipo
     }
 }
 
-
+/**
+ * Função para deletar um usuário.
+ * @param string $usuario - Nome do usuário a ser deletado.
+ */
 function deletarUsuario(string $usuario): void
 {
     global $banco;
@@ -45,6 +61,14 @@ function deletarUsuario(string $usuario): void
     echo var_dump($resp);
 }
 
+/**
+ * Função para atualizar os dados de um usuário.
+ * @param string $usuario - Nome do usuário a ser atualizado.
+ * @param string $nome - Novo nome do usuário (opcional).
+ * @param string $senha - Nova senha do usuário (opcional).
+ * @param string $tipo - Novo tipo de usuário (opcional).
+ * @param bool $debug - Flag para debug (padrão: false).
+ */
 function atualizarUsuario(string $usuario, string $nome = "", string $senha = "", string $tipo = "", bool $debug = false): void
 {
     global $banco;
@@ -73,6 +97,11 @@ function atualizarUsuario(string $usuario, string $nome = "", string $senha = ""
     }
 }
 
+/**
+ * Função para buscar o tipo de usuário.
+ * @param string $usuario - Nome do usuário.
+ * @return string|null - Retorna o tipo de usuário ou null se não encontrado.
+ */
 function buscarTipoUsuario(string $usuario)
 {
     global $banco;
@@ -88,7 +117,14 @@ function buscarTipoUsuario(string $usuario)
     }
 }
 
-//Funcoes para manipular os Eventos
+// Funções para manipular os Eventos
+
+/**
+ * Função para criar um evento.
+ * @param string $nome - Nome do evento.
+ * @param string $data - Data do evento.
+ * @param string $local - Local do evento.
+ */
 function criarEvento(string $nome, string $data, string $local): void
 {
     global $banco;
@@ -100,6 +136,10 @@ function criarEvento(string $nome, string $data, string $local): void
     echo var_dump($resp);
 }
 
+/**
+ * Função para deletar um evento.
+ * @param string $nome - Nome do evento a ser deletado.
+ */
 function deletarEvento(string $nome): void
 {
     global $banco;
@@ -111,6 +151,13 @@ function deletarEvento(string $nome): void
     echo var_dump($resp);
 }
 
+/**
+ * Função para atualizar os dados de um evento.
+ * @param string $nome - Nome do evento a ser atualizado.
+ * @param string $novoNome - Novo nome do evento (opcional).
+ * @param string $data - Nova data do evento (opcional).
+ * @param string $local - Novo local do evento (opcional).
+ */
 function atualizarEvento(string $nome, string $novoNome = "", string $data = "", string $local = ""): void
 {
     global $banco;
@@ -135,6 +182,11 @@ function atualizarEvento(string $nome, string $novoNome = "", string $data = "",
     echo var_dump($resp);
 }
 
+/**
+ * Função para buscar os dados de um evento.
+ * @param string $nome - Nome do evento.
+ * @return array|null - Retorna os dados do evento ou null se não encontrado.
+ */
 function buscarEvento(string $nome)
 {
     global $banco;

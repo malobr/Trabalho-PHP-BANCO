@@ -7,34 +7,35 @@
 </head>
 <body>
     <h1>Criar Usuario</h1>
-    <?php 
-    require_once "banco.php";
+    <?php
+require_once "banco.php";
 
-    $usu = $_POST["usuario"] ?? null;
-    $nom = $_POST["nome"] ?? null;
-    $sen = $_POST["senha"] ?? null;
+function criarUsuario(string $usuario, string $nome, string $senha, string $tipo = 'visualizador', $debug = false) : void {
+    global $banco;
 
-    if (is_null($usu) || is_null($nom) || is_null($sen)) {
-        require "form-criar-usuario.php";
-    } else {
-        criarUsuario($usu, $nom, $sen);
-        echo "Usuario criado com sucesso!";
+    $senha = password_hash($senha, PASSWORD_DEFAULT);
+    $q = "INSERT INTO usuarios(cod, usuario, nome, senha, tipo) VALUES (NULL, '$usuario', '$nome', '$senha', '$tipo')";
+
+    $resp = $banco->query($q);
+
+    if ($debug) {
+        echo "<br> Query: $q";
+        echo var_dump($resp);
     }
+}
 
-    function criarUsuario(string $usuario, string $nome, string $senha, string $tipo = 'visualizador', $debug=false) : void {
-        global $banco;
+$usu = $_POST["usuario"] ?? null;
+$nom = $_POST["nome"] ?? null;
+$sen = $_POST["senha"] ?? null;
 
-        $senha = password_hash($senha, PASSWORD_DEFAULT);
-        $q = "INSERT INTO usuarios(cod, usuario, nome, senha, tipo) VALUES (NULL, '$usuario', '$nome', '$senha', '$tipo')";
-    
-        $resp = $banco->query($q);
-        
-        if ($debug) {
-            echo "<br> Query: $q"; 
-            echo var_dump($resp);
-        }
-    }
+if (is_null($usu) || is_null($nom) || is_null($sen)) {
+    echo "Por favor, preencha todos os campos.";
+} else {
+    criarUsuario($usu, $nom, $sen);
+    echo "Usuário criado com sucesso!";
+}
 ?>
+
 
 </body>
 </html>

@@ -8,7 +8,6 @@
 <body>
 <?php
 session_start(); 
-
 require_once "banco.php";
 
 $u = $_POST["usuario"] ?? null;
@@ -44,6 +43,7 @@ if ($busca && $busca->num_rows > 0) {
     exit();
 }
 ?>
+
 
 </body>
 </html>
