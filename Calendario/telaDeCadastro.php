@@ -66,11 +66,10 @@
     </div>
     <div class="inputBox">
         <select name="tipo" required="required">
-            <option value="visualizador">Visualizador</option>
             <option value="administrador">Administrador</option>
+            <option value="visualizador">Usuário</option>
         </select>
-        <span>Tipo de Usuário</span>
-        <i></i>
+        
     </div>
     <br>
     <div class="link">
