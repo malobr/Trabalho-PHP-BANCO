@@ -1,17 +1,18 @@
 <?php
 
-$host = 'localhost:3308'; // Ajuste conforme necessário
+$host = 'localhost:3308'; // Ajuste a porta conforme necessário
 $user = 'root';
 $password = ''; // Coloque sua senha do MySQL se houver
 $dbname = 'login';
 
 $banco = new mysqli($host, $user, $password, $dbname);
 
+// Verifica se houve algum erro na conexão
 if ($banco->connect_error) {
     die("Erro de conexão com o banco de dados: " . $banco->connect_error);
+} else {
+    echo "Conexão bem-sucedida!";
 }
-
-echo "Conexão bem-sucedida!";
 
 
 
@@ -35,26 +36,25 @@ function createOnDB($into, $values)
  * @param bool $debug - Flag para debug (padrão: false).
  */
 
-function criarUsuario(string $usuario, string $nome, string $senha, string $tipo = 'visualizador', $debug = false): void
-{
-    global $banco;
 
-    $senha = password_hash($senha, PASSWORD_DEFAULT);
 
-    $q = "INSERT INTO usuarios (usuario, nome, senha, tipo) VALUES ('$usuario', '$nome', '$senha', '$tipo')";
-    $resp = $banco->query($q);
-
-    if ($debug) {
-        echo "<br> Query: $q";
-        echo var_dump($resp);
+    function criarUsuario($usuario, $nome, $senha) {
+    
+        global $banco; 
+    
+        $usuario = $banco->real_escape_string($usuario);
+        $nome = $banco->real_escape_string($nome);
+        $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+    
+        $sql = "INSERT INTO usuarios (usuario, nome, senha) VALUES ('$usuario', '$nome', '$senha_hash')";
+        if ($banco->query($sql)) {
+            return true; // Sucesso na inserção
+        } else {
+            return false; // Falha na inserção
+        }
     }
 
-    if ($resp === TRUE) {
-        echo "Usuário criado com sucesso.<br>";
-    } else {
-        echo "Erro ao criar usuário: " . $banco->error . "<br>";
-    }
-}
+
 
 
 /**

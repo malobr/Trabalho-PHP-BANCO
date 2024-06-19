@@ -1,12 +1,12 @@
 <?php
 session_start();
-include('banco.php');
+include('test_connection.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
         $usuario = $banco->real_escape_string($_POST['usuario']);
-        $senha = $_POST['senha']; // A senha não deve ser escapada
-
+        
+        // Consulta SQL para obter os dados do usuário
         $sql_code = "SELECT * FROM usuarios WHERE usuario = '$usuario'";
         $sql_query = $banco->query($sql_code) or die("Falha na execução: " . $banco->error);
 
@@ -14,7 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($quantidade == 1) {
             $usuarioData = $sql_query->fetch_assoc();
-            if (password_verify($senha, $usuarioData['senha'])) {
+            $senha_hash = $usuarioData['senha']; // Obtém a senha criptografada do banco de dados
+            
+            $senha = $_POST['senha']; // A senha não deve ser escapada
+
+            // Verifica se a senha fornecida corresponde à senha criptografada no banco de dados
+            if (password_verify($senha, $senha_hash)) {
                 $_SESSION['cod'] = $usuarioData['cod'];
                 $_SESSION['usuario'] = $usuarioData['usuario'];
                 header("Location: telaCalendario.php");
@@ -29,10 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo 'Preencha todos os campos!';
     }
 } else {
-    echo 'Erro de conexão com o banco de dados!';
+    echo 'Método de requisição inválido!';
 }
-
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
