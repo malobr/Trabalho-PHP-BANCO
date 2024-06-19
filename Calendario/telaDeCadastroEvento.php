@@ -1,34 +1,35 @@
 <?php
-include "banco.php";
+// Inclui o arquivo de conexão com o banco de dados
+include 'banco.php';
 
-if (isset($_POST['submit'])) {
-    $nome = $_POST["nome"] ?? null;
-    $data = $_POST["data"] ?? null;
-    $local = $_POST["local"] ?? null;
+// Verifica se o formulário foi submetido
+if(isset($_POST['submit'])) {
+    // Coleta e valida os dados do formulário
+    $nomeEvento = $_POST["nome"] ?? null;
+    $dataEvento = $_POST["data"] ?? null;
+    $localEvento = $_POST["local"] ?? null;
 
-    if (is_null($nome) || is_null($data) || is_null($local)) {
-        echo "Por favor, preencha todos os campos.";
+ //   require"form-cadastrar-evento.php";
+    require"cadastrar-evento.php";
+
+    // Verifica se algum campo não foi preenchido
+    if(is_null($nomeEvento) || is_null($dataEvento) || is_null($localEvento)) {
+        echo "Preencha todos os campos!";
     } else {
-        $nome = $banco->real_escape_string($nome);
-        $data = $banco->real_escape_string($data);
-        $local = $banco->real_escape_string($local);
+        // Converte a data para o formato correto (opcional se já estiver no formato correto)
+        $dataFormatada = date('Y-m-d', strtotime($dataEvento));
 
-        $q = "INSERT INTO eventos (nome, data, local) VALUES ('$nome', '$data', '$local')";
-
-        $resultado = $banco->query($q);
-
-        if ($resultado) {
-            header("Location: telaDeLogin.php");
-            exit();
-        } else {
-            echo "Erro ao cadastrar evento: " . $banco->error;
-        }
+        // Chama a função para criar o evento
+        criarEvento($nomeEvento, $dataFormatada, $localEvento);
+        echo "Evento criado com sucesso!";
+        
+        // Redirecionamento para a página desejada após o cadastro
+        header("Location: telaCalendario.php");
+        exit(); // Certifique-se de sair após o redirecionamento
     }
-} else {
-    header("Location: telaDeCadastroEvento.php");
-    exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -50,7 +51,7 @@ if (isset($_POST['submit'])) {
                 <i></i>
             </div>
             <div class="inputBox">
-                <input type="data" required="required" name="data" id="data">
+                <input type="date" required="required" name="data" id="data">
                 <span>Data do Evento</span>
                 <i></i>
             </div>
@@ -60,8 +61,8 @@ if (isset($_POST['submit'])) {
                 <i></i>
             </div>
             <div class="link">
-                <a href="teladeLogin.php">Login</a>
-                <a href="telaDeCadastro.php">Cadastrar Usuario</a>
+                <a href="telaDeLogin.php">Login</a>
+                <a href="telaDeCadastro.php">Cadastrar Usuário</a>
             </div>
             <input type="submit" name="submit" value="Cadastro">
         </form>

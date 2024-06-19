@@ -146,7 +146,7 @@ function buscarTipoUsuario(string $usuario)
  * @param string $local - Local do evento.
  */
 
-function criarEvento(string $nome, string $data, string $local): void
+function criarEvento(string $nome, date $data, string $local): void
 {
     global $banco;
 

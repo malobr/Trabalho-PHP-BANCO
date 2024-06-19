@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Tempo de geração: 19/06/2024 às 00:30
+-- Tempo de geração: 19/06/2024 às 03:29
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -60,7 +60,12 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`cod`, `usuario`, `nome`, `senha`, `tipo`) VALUES
-(1, 'Kitler', 'adolfo', '1945', 'visualizador');
+(1, 'Kitler', 'adolfo', '1945', 'visualizador'),
+(2, 'teste', 'haha', 'teste', 'visualizador'),
+(3, 'haha', 'marcelo', '$2y$10$N1zLAsZrOJuWq', ''),
+(4, 'haha', 'marcelo', '$2y$10$UotMYs92Kv8Au', ''),
+(5, 'haha', 'marcelo', '$2y$10$y8OYgkAGUWBXq', ''),
+(6, 'dog', 'cachorro', '$2y$10$UfveTIol2.O/P', '');
 
 --
 -- Índices para tabelas despejadas
@@ -92,7 +97,7 @@ ALTER TABLE `eventos`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

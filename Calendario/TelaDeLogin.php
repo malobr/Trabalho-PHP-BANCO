@@ -1,39 +1,41 @@
 <?php
 session_start();
-include('test_connection.php');
+include('banco.php'); // Certifique-se de que 'banco.php' inclui a conexão com o banco de dados correta
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
         $usuario = $banco->real_escape_string($_POST['usuario']);
-        
-        // Consulta SQL para obter os dados do usuário
+        $senha = $_POST['senha'];
+
+        // Consultar o banco de dados para obter o usuário
         $sql_code = "SELECT * FROM usuarios WHERE usuario = '$usuario'";
         $sql_query = $banco->query($sql_code) or die("Falha na execução: " . $banco->error);
 
-        $quantidade = $sql_query->num_rows;
-
-        if ($quantidade == 1) {
+        if ($sql_query->num_rows === 1) {
             $usuarioData = $sql_query->fetch_assoc();
-            $senha_hash = $usuarioData['senha']; // Obtém a senha criptografada do banco de dados
-            
-            $senha = $_POST['senha']; // A senha não deve ser escapada
-
-            // Verifica se a senha fornecida corresponde à senha criptografada no banco de dados
-            if (password_verify($senha, $senha_hash)) {
+            if (password_verify($senha, $usuarioData['senha'])) {
+                // Senha correta, iniciar sessão
                 $_SESSION['cod'] = $usuarioData['cod'];
                 $_SESSION['usuario'] = $usuarioData['usuario'];
+                $_SESSION['nome'] = $usuarioData['nome']; // Supondo que 'nome' é um campo na tabela
+
+                // Redirecionar para a página após o login
                 header("Location: telaCalendario.php");
                 exit();
             } else {
+                // Senha incorreta
                 echo 'Senha incorreta!';
             }
         } else {
+            // Usuário não encontrado
             echo 'Usuário não encontrado!';
         }
     } else {
+        // Campos não preenchidos
         echo 'Preencha todos os campos!';
     }
 } else {
+    // Método de requisição inválido (não é POST)
     echo 'Método de requisição inválido!';
 }
 ?>
